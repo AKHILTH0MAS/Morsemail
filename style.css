@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+body,
+h2,
+p,
+ul,
+li,
+h1 {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+* {
+  box-sizing: border-box;
+}
+.emailSection {
+  margin: 40px;
+  box-shadow: 1px 2px 10px #202124;
+  border-radius: 10px;
+}
+.ComposeAEmailContainer {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 100%;
+  height: 40px;
+  color: #fff;
+  background-color: #061a3c;
+  display: flex;
+  align-items: center;
+}
+.ComposeAEmailContainer h2 {
+  padding-left: 32px;
+  font-weight: 500;
+  font-family: "Poppins";
+  font-size: 22px;
+}
+.mailbodySection {
+  padding-left: 32px;
+  min-height: 308px;
+}
+.recepientContainer {
+  font-size: 16px;
+  line-height: 22px;
+  opacity: 50%;
+  font-family: "Poppins";
+  padding: 10px 0;
+}
+.subjectContainer {
+  font-size: 16px;
+  line-height: 22px;
+  opacity: 50%;
+  font-family: "Poppins";
+  padding: 10px 0;
+}
+.bodyContainer {
+  font-size: 16px;
+  line-height: 22px;
+  color: #202124;
+  font-family: "Poppins";
+  padding: 10px 0;
+}
+
+.control-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.ControlSection {
+  margin: 0 40px;
+}
+.alphabets img {
+  object-fit: cover;
+}
+.numbers img {
+  object-fit: cover;
+}
+.controlItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.previewLetterTyping {
+  font-size: 40px;
+  line-height: 40px;
+  padding: 12px 30px;
+  border: 2px dashed #061a3c;
+  font-family: "Poppins";
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.previewText {
+  font-size: 16px;
+  font-family: "Times New Roman", Times, serif;
+  margin-bottom: 12px;
+}
+.mousePad {
+  width: 300px;
+  height: 250px;
+  background-color: #ececec;
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px #202124;
+  margin-bottom: 22px;
+  position: relative;
+}
+.mousePad span {
+  width: 20%;
+  height: 4px;
+  background-color: #c1c1c1;
+  position: absolute;
+  bottom: 10px;
+  left: 40%;
+}
