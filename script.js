@@ -66,7 +66,7 @@ let possibleCombinations = new Map([
   [".____.", "'"], // '
   ["_...._", "-"], // -
   ["_..._", "="], // =
-  [".__._.", "+"], // +
+  ["._._._.", "+"], // +
   ["._.._.", '"'], // "
 ]);
 
@@ -78,7 +78,7 @@ function addCursor() {
     let cursor = document.querySelector(".cursor");
     cursor.style.color = check ? "#000" : "#fff";
     check = !check;
-  }, 400);
+  }, 600);
 }
 function verifyLetter() {
   if (possibleCombinations.has(readingLetter)) {
@@ -171,18 +171,28 @@ function backspace() {
 }
 
 function ChangeWhereToType() {
-  if (focusCounter < 4) {
+  if (focusText != undefined) {
+    focusText.style.border = "none";
+    focusText.removeChild(document.querySelector(".cursor"));
+  }
+  if (focusCounter < 3) {
     focusCounter++;
   } else {
     focusCounter = 1;
   }
   if (focusCounter == 1) {
     focusText = recepientText;
+    focusText.style.borderBottom = "1px solid #000";
   } else if (focusCounter == 2) {
+    focusText.style.border = "none";
     focusText = subjectText;
+    focusText.style.borderBottom = "1px solid #000";
   } else if (focusCounter == 3) {
+    focusText.style.border = "none";
     focusText = bodyText;
+    focusText.style.borderBottom = "1px solid #000";
   }
+  addCursor();
 }
 ChangeWhereToType();
 let focusItems = document.querySelectorAll(".ArrowBox");
@@ -191,7 +201,7 @@ let controlFocusCounter = 0;
 function changeFocusOntoControlBox() {
   controlFocus = !controlFocus;
   if (controlFocus) {
-    focusItems[controlFocusCounter].style.background = "#D0B8A8";
+    focusItems[controlFocusCounter].style.background = "#ececec";
   } else {
     focusItems[controlFocusCounter].style.background = "#FFF";
   }
@@ -199,7 +209,7 @@ function changeFocusOntoControlBox() {
 
 function singleClickChangeFocus() {
   if (capslock && controlFocusCounter == 1) {
-    focusItems[1].style.background = "#FF8A8A";
+    focusItems[1].style.background = "#F2E8C6";
   } else {
     focusItems[controlFocusCounter].style.background = "#FFF";
   }
@@ -208,7 +218,7 @@ function singleClickChangeFocus() {
   } else {
     controlFocusCounter = 0;
   }
-  focusItems[controlFocusCounter].style.background = "#D0B8A8";
+  focusItems[controlFocusCounter].style.background = "#ececec";
 }
 
 function doubleClickChangeFocus() {
@@ -221,7 +231,7 @@ function doubleClickChangeFocus() {
     //capslock
     capslock = !capslock;
     if (capslock) {
-      focusItems[1].style.background = "#FF8A8A";
+      focusItems[1].style.background = "#F2E8C6";
     }
   } else if (controlFocusCounter == 2) {
     // space
