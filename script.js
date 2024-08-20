@@ -203,7 +203,7 @@ function singleClickChangeFocus() {
   } else {
     focusItems[controlFocusCounter].style.background = "#FFF";
   }
-  if (controlFocusCounter < 3) {
+  if (controlFocusCounter < 5) {
     controlFocusCounter++;
   } else {
     controlFocusCounter = 0;
@@ -238,8 +238,3 @@ function doubleClickChangeFocus() {
     //send
   }
 }
-
-// function EnterKey() {
-// add next line
-// we could use /n
-// }

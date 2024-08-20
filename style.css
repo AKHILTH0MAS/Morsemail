@@ -120,6 +120,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 12px;
 }
 
 .previewText {
@@ -191,4 +192,23 @@ h1 {
 .mousePadBox {
   display: flex;
   gap: 20px;
+}
+.controlTextWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlTextContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  column-gap: 10px;
+}
+.controlText{
+  font-size: 14px;
+  font-family: "Poppins";
 }
