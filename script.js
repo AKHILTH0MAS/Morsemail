@@ -4,18 +4,20 @@ let readedLetters = "";
 let readingLetter = "";
 let clickCount = 0;
 let focusCounter = 0;
-let focusText;
 let capslock = false;
+let controlFocus = false;
 
 let mousePad = document.querySelector(".mousePad");
 let recepientText = document.getElementById("recepientText");
 let subjectText = document.getElementById("subjectText");
 let bodyText = document.getElementById("bodyText");
-
-let controlFocus = false;
-
 let previewMorse = document.querySelector(".previewMorse");
 let previewLetter = document.querySelector(".previewLetter");
+
+let holdtimer;
+let preventClick = false;
+let focusText;
+let controlFocusCounter = 0;
 
 let possibleCombinations = new Map([
   // Letters
@@ -73,11 +75,11 @@ let possibleCombinations = new Map([
 function addCursor() {
   let cursor = `<span class="cursor">|</span>`;
   focusText.insertAdjacentHTML("beforeend", cursor);
-  let check = true;
+  let cursorVisible = true;
   setInterval(() => {
     let cursor = document.querySelector(".cursor");
-    cursor.style.color = check ? "#000" : "#fff";
-    check = !check;
+    cursor.style.color = cursorVisible ? "#000" : "#fff";
+    cursorVisible = !cursorVisible;
   }, 600);
 }
 function verifyLetter() {
@@ -93,7 +95,6 @@ function verifyLetter() {
     return "";
   }
 }
-
 function registerclick() {
   if (!controlFocus) {
     if (!preventClick) {
@@ -125,9 +126,6 @@ function registerclick() {
     }
   }
 }
-
-let holdtimer;
-let preventClick = false;
 
 mousePad.addEventListener("mousedown", () => {
   preventClick = false;
@@ -192,11 +190,9 @@ function ChangeWhereToType() {
     focusText = bodyText;
     focusText.style.borderBottom = "1px solid #000";
   }
-  addCursor();
 }
 ChangeWhereToType();
 let focusItems = document.querySelectorAll(".ArrowBox");
-let controlFocusCounter = 0;
 
 function changeFocusOntoControlBox() {
   controlFocus = !controlFocus;
