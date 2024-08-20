@@ -13,7 +13,7 @@ h1 {
   box-sizing: border-box;
 }
 .emailSection {
-  margin: 40px;
+  margin: 30px 50px;
   box-shadow: 1px 2px 10px #202124;
   border-radius: 10px;
 }
@@ -78,43 +78,86 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
-.boxes{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.boxes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.previewLetterTyping {
-  font-size: 40px;
-  line-height: 40px;
+.previewLetter {
+  width: 100%;
+  font-size: 20px;
+  line-height: 26px;
   padding: 12px 30px;
   border: 2px dashed #061a3c;
   font-family: "Poppins";
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .previewMorse {
   width: 100%;
-  font-size: 40px;
-  line-height: 40px;
+  font-size: 20px;
+  line-height: 26px;
   padding: 12px 30px;
   border: 2px dashed #061a3c;
   font-family: "Poppins";
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
-.previewWord{
-    font-size: 40px;
-    line-height: 40px;
-    padding: 12px 30px;
-    border: 2px dashed #061a3c;
-    font-family: "Poppins";
-    border-radius: 10px;
-    margin-bottom: 20px;
+.controlElementsBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+.rowOne {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rowTwo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .previewText {
   font-size: 16px;
   font-family: "Times New Roman", Times, serif;
   margin-bottom: 12px;
+}
+.ArrowBox {
+  padding: 10px;
+  border: 1px solid #061a3c;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-size: 14px;
+  margin: 4px;
+  text-align: center;
+}
+.controlBox {
+  padding: 10px;
+  min-width: 100px;
+  text-wrap: nowrap;
+  border: 1px solid #061a3c;
+  border-radius: 12px;
+}
+
+#upArrow img {
+  transform: rotate(90deg);
+  width: 30px;
+}
+#downArrow img {
+  transform: rotate(-90deg);
+  width: 30px;
+}
+#rightArrow img {
+  transform: rotate(180deg);
+  width: 30px;
+}
+#leftArrow img {
+  width: 30px;
 }
 .mousePad {
   width: 300px;
@@ -132,4 +175,20 @@ h1 {
   position: absolute;
   bottom: 10px;
   left: 40%;
+}
+.box {
+  padding: 20px;
+  border: 1px solid #202124;
+  text-align: center;
+  font-family: "Poppins";
+  border-radius: 10px;
+}
+.extraBoxes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.mousePadBox {
+  display: flex;
+  gap: 20px;
 }

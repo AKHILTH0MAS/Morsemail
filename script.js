@@ -3,8 +3,8 @@ let readedWord = "";
 let readedLetters = "";
 let readingLetter = "";
 let clickCount = 0;
-let focusCounter = 1;
-
+let focusCounter = 0;
+let focusText;
 let capslock = false;
 
 let mousePad = document.querySelector(".mousePad");
@@ -12,40 +12,39 @@ let recepientText = document.getElementById("recepientText");
 let subjectText = document.getElementById("subjectText");
 let bodyText = document.getElementById("bodyText");
 
-let focusText;
+let controlFocus = false;
 
-let previewWord = document.querySelector(".previewWord");
 let previewMorse = document.querySelector(".previewMorse");
-let previewLetterTyping = document.querySelector(".previewLetterTyping");
+let previewLetter = document.querySelector(".previewLetter");
 
 let possibleCombinations = new Map([
   // Letters
-  ["._", "A"],
-  ["_...", "B"],
-  ["_._.", "C"],
-  ["_..", "D"],
-  [".", "E"],
-  [".._.", "F"],
-  ["__.", "G"],
-  ["....", "H"],
-  ["..", "I"],
-  [".___", "J"],
-  ["_._", "K"],
-  ["._..", "L"],
-  ["__", "M"],
-  ["_.", "N"],
-  ["___", "O"],
-  [".__.", "P"],
-  ["__._", "Q"],
-  ["._.", "R"],
-  ["...", "S"],
-  ["_", "T"],
-  [".._", "U"],
-  ["..._", "V"],
-  [".__", "W"],
-  ["_.._", "X"],
-  ["_.__", "Y"],
-  ["__..", "Z"],
+  ["._", "a"],
+  ["_...", "b"],
+  ["_._.", "c"],
+  ["_..", "d"],
+  [".", "e"],
+  [".._.", "f"],
+  ["__.", "g"],
+  ["....", "h"],
+  ["..", "i"],
+  [".___", "j"],
+  ["_._", "k"],
+  ["._..", "l"],
+  ["__", "m"],
+  ["_.", "n"],
+  ["___", "o"],
+  [".__.", "p"],
+  ["__._", "q"],
+  ["._.", "r"],
+  ["...", "s"],
+  ["_", "t"],
+  [".._", "u"],
+  ["..._", "v"],
+  [".__", "w"],
+  ["_.._", "x"],
+  ["_.__", "y"],
+  ["__..", "z"],
 
   // Numbers
   ["_____", "0"],
@@ -64,40 +63,66 @@ let possibleCombinations = new Map([
   ["._._._", "."], // .
   ["__..__", ","], // ,
   ["_.._.", "/"], // /
-  // [".____.", "'"],   // '
+  [".____.", "'"], // '
   ["_...._", "-"], // -
   ["_..._", "="], // =
   [".__._.", "+"], // +
   ["._.._.", '"'], // "
 ]);
 
+function addCursor() {
+  let cursor = `<span class="cursor">|</span>`;
+  focusText.insertAdjacentHTML("beforeend", cursor);
+  let check = true;
+  setInterval(() => {
+    let cursor = document.querySelector(".cursor");
+    cursor.style.color = check ? "#000" : "#fff";
+    check = !check;
+  }, 400);
+}
 function verifyLetter() {
   if (possibleCombinations.has(readingLetter)) {
-    let letter = possibleCombinations.get(readingLetter);   
-    previewLetterTyping.innerHTML = letter;
+    let letter = capslock
+      ? possibleCombinations.get(readingLetter).toUpperCase()
+      : possibleCombinations.get(readingLetter);
+    previewLetter.innerHTML = letter;
     readedLetters = readedLetters.concat(letter);
-    previewWord.innerHTML = readedWord;
     return letter;
   } else {
+    previewLetter.innerHTML = "Letter";
     return "";
   }
 }
 
 function registerclick() {
-  if (!preventClick) {
-    clickCount++;
-    setTimeout(() => {
-      if (clickCount == 1) {
-        singleClickEvent();
-      } else if (clickCount == 2) {
-        doubleClickEvent();
-      } else if (clickCount == 3) {
-        tripleClickEvent();
-      } else if (clickCount == 4) {
-        backspace();
-      }
-      clickCount = 0;
-    }, 1000);
+  if (!controlFocus) {
+    if (!preventClick) {
+      clickCount++;
+      setTimeout(() => {
+        if (clickCount == 1) {
+          singleClickEvent();
+        } else if (clickCount == 2) {
+          doubleClickEvent();
+        } else if (clickCount == 3) {
+          tripleClickEvent();
+        } else if (clickCount == 4) {
+          backspace();
+        }
+        clickCount = 0;
+      }, 600);
+    }
+  } else {
+    if (!preventClick) {
+      clickCount++;
+      setTimeout(() => {
+        if (clickCount == 1) {
+          singleClickChangeFocus();
+        } else if (clickCount == 2) {
+          doubleClickChangeFocus();
+        }
+        clickCount = 0;
+      }, 400);
+    }
   }
 }
 
@@ -108,10 +133,9 @@ mousePad.addEventListener("mousedown", () => {
   preventClick = false;
   holdtimer = setTimeout(() => {
     preventClick = true;
-    fourClickEvent();
+    changeFocusOntoControlBox();
   }, 1000);
 });
-
 mousePad.addEventListener("mouseup", () => {
   clearTimeout(holdtimer);
 });
@@ -119,41 +143,25 @@ mousePad.addEventListener("mouseup", () => {
 mousePad.addEventListener("click", registerclick);
 
 function singleClickEvent() {
-  console.log("One click");
   readingLetter = readingLetter.concat(".");
   previewMorse.innerHTML = readingLetter;
   verifyLetter();
 }
 
 function doubleClickEvent() {
-  console.log("double click");
   readingLetter = readingLetter.concat("_");
   previewMorse.innerHTML = readingLetter;
   verifyLetter();
 }
 
 function tripleClickEvent() {
-  console.log("triple click");
   let letter = verifyLetter();
   readedWord = readedWord.concat(letter);
+  focusText.innerHTML = readedWord;
   readingLetter = "";
-  previewWord.innerHTML = readedWord;
-  console.log(readedWord);
-}
-
-function fourClickEvent() {
-  readedWordsArray.push(readedWord);
-  readedWord = "";
-  readingLetter = "";
-  previewMorse.innerHTML = ":)";
-  previewLetterTyping.innerHTML = ":)";
-  previewWord.innerHTML = ":)";
-  console.log(readedWordsArray.toString());
-  let sentence = "";
-  readedWordsArray.forEach((element) => {
-    sentence = sentence.concat(element, " ");
-  });
-  recepientText.innerHTML = sentence;
+  previewMorse.innerHTML = "Morse";
+  previewLetter.innerHTML = "Letter";
+  addCursor();
 }
 
 function backspace() {
@@ -162,7 +170,7 @@ function backspace() {
   previewMorse.innerHTML = readingLetter;
 }
 
-function changeFocus() {
+function ChangeWhereToType() {
   if (focusCounter < 4) {
     focusCounter++;
   } else {
@@ -176,12 +184,62 @@ function changeFocus() {
     focusText = bodyText;
   }
 }
+ChangeWhereToType();
+let focusItems = document.querySelectorAll(".ArrowBox");
+let controlFocusCounter = 0;
 
-function CapsLock() {
-  capslock = !capslock;
+function changeFocusOntoControlBox() {
+  controlFocus = !controlFocus;
+  if (controlFocus) {
+    focusItems[controlFocusCounter].style.background = "#D0B8A8";
+  } else {
+    focusItems[controlFocusCounter].style.background = "#FFF";
+  }
 }
 
-function EnterKey(){
-  // add next line 
-  // we could use /n
+function singleClickChangeFocus() {
+  if (capslock && controlFocusCounter == 1) {
+    focusItems[1].style.background = "#FF8A8A";
+  } else {
+    focusItems[controlFocusCounter].style.background = "#FFF";
+  }
+  if (controlFocusCounter < 3) {
+    controlFocusCounter++;
+  } else {
+    controlFocusCounter = 0;
+  }
+  focusItems[controlFocusCounter].style.background = "#D0B8A8";
 }
+
+function doubleClickChangeFocus() {
+  if (controlFocusCounter == 0) {
+    //backspace
+    readedWord = readedWord.slice(0, -1);
+    focusText.innerHTML = readedWord;
+    addCursor();
+  } else if (controlFocusCounter == 1) {
+    //capslock
+    capslock = !capslock;
+    if (capslock) {
+      focusItems[1].style.background = "#FF8A8A";
+    }
+  } else if (controlFocusCounter == 2) {
+    // space
+    readedWord = readedWord.concat(" ");
+    focusText.innerHTML = readedWord;
+    addCursor();
+  } else if (controlFocusCounter == 3) {
+    //enter
+    readedWord = readedWord.concat("<br>");
+    focusText.innerHTML = readedWord;
+  } else if (controlFocusCounter == 4) {
+    ChangeWhereToType();
+  } else if (controlFocusCounter == 5) {
+    //send
+  }
+}
+
+// function EnterKey() {
+// add next line
+// we could use /n
+// }
