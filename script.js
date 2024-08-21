@@ -14,6 +14,7 @@ let bodyText = document.getElementById("bodyText");
 let previewMorse = document.querySelector(".previewMorse");
 let previewLetter = document.querySelector(".previewLetter");
 
+let cursorTimer;
 let holdtimer;
 let preventClick = false;
 let focusText;
@@ -73,12 +74,17 @@ let possibleCombinations = new Map([
 ]);
 
 function addCursor() {
+  if (cursorTimer) {
+    clearInterval(cursorTimer);
+  }
   let cursor = `<span class="cursor">|</span>`;
   focusText.insertAdjacentHTML("beforeend", cursor);
   let cursorVisible = true;
-  setInterval(() => {
+  cursorTimer = setInterval(() => {
     let cursor = document.querySelector(".cursor");
-    cursor.style.color = cursorVisible ? "#000" : "#fff";
+    if (cursor != null) {
+      cursor.style.color = cursorVisible ? "#000" : "#fff";
+    }
     cursorVisible = !cursorVisible;
   }, 600);
 }
@@ -110,7 +116,7 @@ function registerclick() {
           backspace();
         }
         clickCount = 0;
-      }, 800);
+      }, 1000);
     }
   } else {
     if (!preventClick) {
@@ -165,7 +171,8 @@ function tripleClickEvent() {
 function backspace() {
   readingLetter = readingLetter.slice(0, readingLetter.length - 1);
   verifyLetter();
-  previewMorse.innerHTML = readingLetter;
+
+  previewMorse.innerHTML = readingLetter.length == 0 ? "morse" : readingLetter;
 }
 
 function ChangeWhereToType() {
