@@ -127,18 +127,18 @@ function registerclick() {
   }
 }
 
-mousePad.addEventListener("mousedown", () => {
+document.querySelector('body').addEventListener("mousedown", () => {
   preventClick = false;
   holdtimer = setTimeout(() => {
     preventClick = true;
     changeFocusOntoControlBox();
   }, 1000);
 });
-mousePad.addEventListener("mouseup", () => {
+document.querySelector('body').addEventListener("mouseup", () => {
   clearTimeout(holdtimer);
 });
 
-mousePad.addEventListener("click", registerclick);
+document.querySelector('body').addEventListener("click", registerclick);
 
 function singleClickEvent() {
   readingLetter = readingLetter.concat(".");
