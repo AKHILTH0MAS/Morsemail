@@ -127,18 +127,18 @@ function registerclick() {
   }
 }
 
-document.querySelector('body').addEventListener("mousedown", () => {
+document.querySelector("body").addEventListener("mousedown", () => {
   preventClick = false;
   holdtimer = setTimeout(() => {
     preventClick = true;
     changeFocusOntoControlBox();
   }, 1000);
 });
-document.querySelector('body').addEventListener("mouseup", () => {
+document.querySelector("body").addEventListener("mouseup", () => {
   clearTimeout(holdtimer);
 });
 
-document.querySelector('body').addEventListener("click", registerclick);
+document.querySelector("body").addEventListener("click", registerclick);
 
 function singleClickEvent() {
   readingLetter = readingLetter.concat(".");
@@ -190,6 +190,8 @@ function ChangeWhereToType() {
     focusText = bodyText;
     focusText.style.borderBottom = "1px solid #000";
   }
+  readingLetter = "";
+  readedWord = "";
 }
 ChangeWhereToType();
 let focusItems = document.querySelectorAll(".ArrowBox");
