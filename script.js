@@ -110,7 +110,7 @@ function registerclick() {
           backspace();
         }
         clickCount = 0;
-      }, 600);
+      }, 800);
     }
   } else {
     if (!preventClick) {
